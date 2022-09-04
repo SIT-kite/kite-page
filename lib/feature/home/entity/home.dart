@@ -91,10 +91,11 @@ enum FunctionType {
 List<FunctionType> getDefaultFunctionList() {
   return <FunctionType>[
     FunctionType.download,
+    FunctionType.separator, // --
     FunctionType.notice,
     FunctionType.timetable,
     FunctionType.report,
-    FunctionType.separator,
+    FunctionType.separator, // --
     FunctionType.exam,
     FunctionType.classroom,
     FunctionType.event,
@@ -104,7 +105,7 @@ List<FunctionType> getDefaultFunctionList() {
     FunctionType.office,
     FunctionType.mail,
     FunctionType.bulletin,
-    FunctionType.separator,
+    FunctionType.separator, // --
     FunctionType.freshman,
     FunctionType.freshman,
     FunctionType.scanner,

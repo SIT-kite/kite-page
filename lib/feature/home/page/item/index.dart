@@ -77,7 +77,7 @@ class FunctionButtonFactory {
           route: RouteTable.download,
           iconWidget: Icon(Icons.download, size: 30.h, color: Theme.of(context).primaryColor),
           title: '下载',
-          subtitle: '立即下载新版小风筝',
+          subtitle: '立即下载最新版小风筝',
         ),
     FunctionType.bulletin: () => HomeFunctionButton(
           route: RouteTable.notice,

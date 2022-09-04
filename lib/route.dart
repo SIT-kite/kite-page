@@ -76,14 +76,23 @@ class RouteTable {
   static const download = '/download';
 
   static final Map<String, NamedRouteBuilder> routeTable = {
-    download: (context, args) => const SimpleWebViewPage(initialUrl: 'https://kite.sunnysab.cn/upgrade/'),
+    download: (context, args) => const SimpleWebViewPage(
+          initialUrl: 'https://kite.sunnysab.cn/upgrade/',
+          fixedTitle: '立即下载最新小风筝',
+        ),
     report: (context, args) => const SimpleWebViewPage(
-        initialUrl:
-            'https://kite.sunnysab.cn/wiki/kite-app/features/#%E4%B8%8A%E6%8A%A5%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95',
-        fixedTitle: '疫情上报'),
-    bbs: (context, args) =>
-        const SimpleWebViewPage(initialUrl: 'https://kite.sunnysab.cn/wiki/kite-app/bbs/', fixedTitle: '上应必答'),
-    game: (context, args) => const SimpleWebViewPage(initialUrl: 'https://kite.sunnysab.cn/wiki/kite-app/game/'),
+          initialUrl:
+              'https://kite.sunnysab.cn/wiki/kite-app/features/#%E4%B8%8A%E6%8A%A5%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95',
+          fixedTitle: '疫情上报',
+        ),
+    bbs: (context, args) => const SimpleWebViewPage(
+          initialUrl: 'https://kite.sunnysab.cn/wiki/kite-app/bbs/',
+          fixedTitle: '上应必答',
+        ),
+    game: (context, args) => const SimpleWebViewPage(
+          initialUrl: 'https://kite.sunnysab.cn/wiki/kite-app/game/',
+          fixedTitle: '小游戏',
+        ),
     home: (context, args) => const HomePage(),
     notice: (context, args) => const NoticePage(),
     notFound: (context, args) => const NotFoundPage(),

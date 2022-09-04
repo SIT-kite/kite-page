@@ -23,7 +23,7 @@ jobs:
       - run: flutter pub get
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - run: flutter pub run flutter_native_splash:create
-      - run: flutter build web --web-renderer=html --base-href=/page/ --no-source-maps --no-null-assertions --no-native-null-assertions --release
+      - run: flutter build web --web-renderer=canvaskit --base-href=/page/ --no-source-maps --no-null-assertions --no-native-null-assertions --release
 
       - name: Copy file via ssh password
         uses: appleboy/scp-action@master

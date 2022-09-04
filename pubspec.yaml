@@ -24,6 +24,8 @@ dependencies:
   pull_to_refresh: ^2.0.0
   url_launcher: ^6.1.5
   flutter_svg: ^1.1.4
+  flutter_native_splash: ^2.1.1           # Splash screen
+
 
 dev_dependencies:
   flutter_test:

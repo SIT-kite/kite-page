@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
     return [
       const GreetingWidget(),
       separator,
-      // ...result,
+      ...result,
       separator,
       Image.asset('assets/home/bottom.png'),
     ];

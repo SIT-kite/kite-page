@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import 'package:flutter/material.dart';
+import 'package:kite_page/route.dart';
 import 'package:kite_page/storage/init.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 class KiteDrawer extends Drawer {
   const KiteDrawer({Key? key}) : super(key: key);
@@ -36,40 +36,17 @@ class KiteDrawer extends Drawer {
                     style: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.white70))),
           ),
           ListTile(
-            title: const Text('设置'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context).pushNamed('/setting');
-            },
-          ),
-          ListTile(
-            title: const Text('网络工具'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context).pushNamed('/connectivity');
-            },
-          ),
-          UniversalPlatform.isAndroid
-              ? ListTile(
-                  title: const Text('校园卡工具'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).pushNamed('/campusCard');
-                  },
-                )
-              : const SizedBox(height: 0),
-          ListTile(
             title: const Text('反馈'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.of(context).pushNamed('/feedback');
+              Navigator.of(context).pushNamed(RouteTable.feedback);
             },
           ),
           ListTile(
             title: const Text('关于'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.of(context).pushNamed('/about');
+              Navigator.of(context).pushNamed(RouteTable.about);
             },
           ),
         ],

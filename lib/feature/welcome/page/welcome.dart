@@ -93,13 +93,8 @@ class WelcomePage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildEntryButton(context, '本/专科生入口', RouteTable.home, () => setUserType(UserType.undergraduate)),
+                    buildEntryButton(context, '立即体验', RouteTable.home, () => setUserType(UserType.undergraduate)),
                     SizedBox(height: 10.h),
-                    buildEntryButton(context, '研究生入口', RouteTable.home, () => setUserType(UserType.postgraduate)),
-                    SizedBox(height: 10.h),
-                    buildEntryButton(context, '教师入口', RouteTable.home, () => setUserType(UserType.teacher)),
-                    SizedBox(height: 10.h),
-                    buildEntryButton(context, '新生入口', RouteTable.home, () => setUserType(UserType.freshman)),
                   ],
                 ),
               ],

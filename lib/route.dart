@@ -18,6 +18,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:kite_page/feature/not_found/page.dart';
+import 'package:kite_page/feature/web_page/about.dart';
+import 'package:kite_page/feature/web_page/feedback.dart';
 
 import 'feature/egg/page/index.dart';
 import 'feature/home/page/index.dart';
@@ -76,6 +78,8 @@ class RouteTable {
     egg: (context, args) => const EggPage(),
     notice: (context, args) => const NoticePage(),
     notFound: (context, args) => const NotFoundPage(),
+    about: (context, args) => const AboutPage(),
+    feedback: (context, args) => const FeedbackPage(),
   };
 
   static NamedRouteBuilder get(String path) {

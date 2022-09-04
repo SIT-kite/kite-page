@@ -17,9 +17,11 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:kite_page/feature/not_found/page.dart';
 
 import 'feature/egg/page/index.dart';
 import 'feature/home/page/index.dart';
+import 'feature/kite/notice/page.dart';
 
 typedef NamedRouteBuilder = Widget Function(BuildContext context, Map<String, dynamic> args);
 
@@ -67,13 +69,16 @@ class RouteTable {
   static const freshmanAnalysis = '$freshman/analysis';
   static const freshmanFriend = '$freshman/friend';
   static const board = '/board';
+  static const notFound = '/notFound';
 
   static final Map<String, NamedRouteBuilder> routeTable = {
     home: (context, args) => const HomePage(),
     egg: (context, args) => const EggPage(),
+    notice: (context, args) => const NoticePage(),
+    notFound: (context, args) => const NotFoundPage(),
   };
 
-  static NamedRouteBuilder? get(String path) {
-    return routeTable[path];
+  static NamedRouteBuilder get(String path) {
+    return routeTable[path] ?? routeTable[notFound]!;
   }
 }

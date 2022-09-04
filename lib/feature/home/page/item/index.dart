@@ -18,6 +18,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kite_page/feature/home/page/item/notice.dart';
 
 import '../../entity/home.dart';
 import 'bbs.dart';
@@ -84,6 +85,8 @@ class HomeFunctionButton extends StatelessWidget {
 class FunctionButtonFactory {
   static Widget createFunctionButton(FunctionType type) {
     switch (type) {
+      case FunctionType.notice:
+        return const NoticeItem();
       case FunctionType.classroom:
         return const ClassroomItem();
       case FunctionType.contact:

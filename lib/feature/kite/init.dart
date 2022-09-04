@@ -15,35 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import 'package:catcher/catcher.dart';
-import 'package:kite_page/feature/kite/init.dart';
+
 import 'package:kite_page/session/kite_session.dart';
-import 'package:kite_page/storage/init.dart';
-import 'package:kite_page/util/logger.dart';
 
-import 'global.dart';
+import 'notice/dao.dart';
+import 'notice/service.dart';
 
-class Initializer {
-  static Future<void> init() async {
-    // 运行前初始化
-    try {
-      await _init();
-    } on Exception catch (error, stackTrace) {
-      try {
-        Catcher.reportCheckedError(error, stackTrace);
-      } catch (e) {
-        Log.error([error, stackTrace]);
-      }
-    }
-  }
+class KiteInitializer {
+  static late NoticeServiceDao noticeService;
 
-  static Future<void> _init() async {
-    await Global.init();
-    KvStorageInitializer.init();
-    final kiteSession = KiteSession(
-      Global.dio,
-      KvStorageInitializer.jwt,
-    );
-    await KiteInitializer.init(kiteSession: kiteSession);
+  static late KiteSession kiteSession;
+
+  static Future<void> init({
+    required KiteSession kiteSession,
+  }) async {
+    KiteInitializer.kiteSession = kiteSession;
+    noticeService = NoticeService(kiteSession);
   }
 }

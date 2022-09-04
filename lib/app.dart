@@ -26,7 +26,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kite_page/feature/welcome/page/welcome.dart';
 
-import 'global/global.dart';
 import 'route.dart';
 import 'storage/init.dart';
 import 'util/logger.dart';
@@ -43,7 +42,7 @@ class KiteApp extends StatelessWidget {
         final args = settings.arguments as Map<String, dynamic>? ?? {};
         final argsJson = jsonEncode(args);
         Log.info('跳转路由: ${settings.name}, 参数: $argsJson');
-        return builder!(context, args);
+        return builder(context, args);
       },
       settings: settings,
     );

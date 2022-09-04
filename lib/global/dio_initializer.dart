@@ -15,10 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:kite_page/storage/init.dart';
 import 'package:kite_page/util/logger.dart';
 
 const String _defaultUaString = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0';
@@ -42,9 +39,6 @@ class DioInitializer {
   }
 
   static Dio _initDioInstance({required DioConfig config}) {
-    // 设置 HTTP 代理
-    HttpOverrides.global = KiteHttpOverrides(config: config);
-
     Dio dio = Dio();
 
     // 设置默认超时时间
@@ -54,43 +48,5 @@ class DioInitializer {
       receiveTimeout: config.receiveTimeout,
     );
     return dio;
-  }
-}
-
-class KiteHttpOverrides extends HttpOverrides {
-  final DioConfig config;
-  KiteHttpOverrides({required this.config});
-
-  String getProxyPolicyByUrl(Uri url, String httpProxy) {
-    Log.info('直连访问 $url');
-    return 'DIRECT';
-  }
-
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    final client = super.createHttpClient(context);
-
-    // 设置证书检查
-    if (config.allowBadCertificate || KvStorageInitializer.network.useProxy || config.httpProxy != null) {
-      client.badCertificateCallback = (cert, host, port) => true;
-    }
-
-    // 设置代理. 优先使用代码中的设置, 便于调试.
-    if (config.httpProxy != null) {
-      // 判断测试环境代理合法性
-      // TODO: 检查代理格式
-      if (config.httpProxy!.isNotEmpty) {
-        // 可以
-        Log.info('测试环境设置代理: ${config.httpProxy}');
-        client.findProxy = (url) => getProxyPolicyByUrl(url, config.httpProxy!);
-      } else {
-        // 不行
-        Log.info('测试环境代理服务器为空或不合法，将不使用代理服务器');
-      }
-    } else if (KvStorageInitializer.network.useProxy && KvStorageInitializer.network.proxy.isNotEmpty) {
-      Log.info('线上设置代理: ${config.httpProxy}');
-      client.findProxy = (url) => getProxyPolicyByUrl(url, KvStorageInitializer.network.proxy);
-    }
-    return client;
   }
 }

@@ -19,6 +19,7 @@
 import 'package:kite_page/storage/dao/home.dart';
 import 'package:kite_page/storage/storage/auth.dart';
 import 'package:kite_page/storage/storage/home.dart';
+import 'package:kite_page/storage/storage/jwt.dart';
 
 import 'dao/index.dart';
 import 'dao/report.dart';
@@ -40,5 +41,6 @@ class KvStorageInitializer {
     theme = ThemeSettingStorage();
     home = HomeSettingStorage();
     auth = AuthSettingStorage();
+    jwt = JwtStorage();
   }
 }

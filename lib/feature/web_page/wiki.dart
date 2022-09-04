@@ -15,28 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 import 'package:flutter/material.dart';
+import 'package:kite_page/component/webview_page.dart';
 
-import 'index.dart';
+const String _defaultWikiUrl = 'https://kite.sunnysab.cn/wiki/';
 
-class NightItem extends StatelessWidget {
-  final String content = '不早了，互道一句晚安早点休息吧';
+class WikiPage extends StatelessWidget {
+  final String? customWikiUrl;
 
-  const NightItem({Key? key}) : super(key: key);
+  const WikiPage({this.customWikiUrl, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
-
-    if (now.hour >= 21 || now.hour < 6) {
-      return HomeFunctionButton(
-        route: '/night',
-        icon: 'assets/home/icon_night.svg',
-        title: '晚安',
-        subtitle: content,
-      );
-    }
-    return const SizedBox(height: 0);
+    return SimpleWebViewPage(
+      initialUrl: customWikiUrl ?? _defaultWikiUrl,
+      fixedTitle: '上应 Wiki',
+    );
   }
 }

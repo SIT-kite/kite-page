@@ -19,14 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kite_page/feature/home/entity/home.dart';
-import 'package:kite_page/feature/home/page/item/notice.dart';
-
-export 'bbs.dart';
-export 'classroom.dart';
-export 'contact.dart';
-export 'game.dart';
-export 'night.dart';
-export 'wiki.dart';
+import 'package:kite_page/route.dart';
 
 class HomeFunctionButton extends StatelessWidget {
   final String? route;
@@ -76,26 +69,34 @@ class HomeFunctionButton extends StatelessWidget {
 }
 
 class FunctionButtonFactory {
+  static final builders = {
+    FunctionType.notice: () => HomeFunctionButton(
+          route: RouteTable.bbs,
+          icon: 'assets/home/icon_bbs.svg',
+          title: '问答',
+          subtitle: '这里有我们共同的声音',
+        ),
+    FunctionType.board: () => HomeFunctionButton(
+          route: RouteTable.board,
+          icon: 'assets/home/icon_board.svg',
+          title: '风筝时刻',
+          subtitle: '随手记录美好',
+        ),
+    FunctionType.contact: () => HomeFunctionButton(
+          route: RouteTable.contact,
+          icon: 'assets/home/icon_contact.svg',
+          title: '常用电话',
+          subtitle: '查找学校部门的联系方式',
+        ),
+    FunctionType.game: () => HomeFunctionButton(
+          route: RouteTable.game,
+          icon: 'assets/home/icon_game.svg',
+          title: '小游戏',
+          subtitle: '来放松一下吧',
+        ),
+  };
   static Widget createFunctionButton(FunctionType type) {
-    switch (type) {
-      case FunctionType.notice:
-        return const NoticeItem();
-      // case FunctionType.classroom:
-      //   return const ClassroomItem();
-      // case FunctionType.contact:
-      //   return const ContactItem();
-      // case FunctionType.game:
-      //   return const GameItem();
-      // case FunctionType.wiki:
-      //   return const WikiItem();
-      // case FunctionType.separator:
-      //   return Container();
-      // case FunctionType.bbs:
-      //   return const BbsItem();
-      // case FunctionType.board:
-      //   return const BoardItem();
-      default:
-        return Container();
-    }
+    final btnBuilder = builders[type];
+    return btnBuilder == null ? Container() : btnBuilder();
   }
 }

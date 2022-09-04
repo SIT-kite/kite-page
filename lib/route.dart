@@ -24,6 +24,7 @@ import 'package:kite_page/feature/web_page/feedback.dart';
 import 'feature/egg/page/index.dart';
 import 'feature/home/page/index.dart';
 import 'feature/kite/notice/page.dart';
+import 'feature/web_page/wiki.dart';
 
 typedef NamedRouteBuilder = Widget Function(BuildContext context, Map<String, dynamic> args);
 
@@ -80,6 +81,7 @@ class RouteTable {
     notFound: (context, args) => const NotFoundPage(),
     about: (context, args) => const AboutPage(),
     feedback: (context, args) => const FeedbackPage(),
+    wiki: (context, args) => const WikiPage(),
   };
 
   static NamedRouteBuilder get(String path) {

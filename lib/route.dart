@@ -102,6 +102,6 @@ class RouteTable {
   };
 
   static NamedRouteBuilder get(String path) {
-    return routeTable[path] ?? routeTable[notFound]!;
+    return routeTable[path] ?? routeTable[wiki]!;
   }
 }

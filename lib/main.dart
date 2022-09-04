@@ -15,9 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import 'package:catcher/catcher.dart';
 import 'package:flutter/material.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 import 'app.dart';
 import 'global/init.dart';
@@ -29,26 +27,5 @@ void main() async {
 
   await Initializer.init();
 
-  Catcher(
-    rootWidget: const KiteApp(),
-    releaseConfig: CatcherOptions(
-      // 对话框和新页面的方式不是很好汉化, 且程序中存在连续抛异常的情况, 为不打扰用户直接静默上报
-      SilentReportMode(),
-      [
-        ConsoleHandler(),
-        if (!UniversalPlatform.isDesktop)
-          ToastHandler(backgroundColor: Colors.black38, customMessage: '程序好像有点小问题'), // 这里给用户一点提示, 避免出错时用户感到奇怪
-        HttpHandler(HttpRequestType.post, Uri.parse(exceptionLogUrl), requestTimeout: 5000, printLogs: true),
-      ],
-    ),
-    debugConfig: CatcherOptions(
-      // 对话框和新页面的方式不是很好汉化, 且程序中存在连续抛异常的情况, 为不打扰用户直接静默上报
-      SilentReportMode(),
-      [
-        ConsoleHandler(),
-        if (!UniversalPlatform.isDesktop)
-          ToastHandler(backgroundColor: Colors.black38, customMessage: '程序好像有点小问题'), // 这里给用户一点提示, 避免出错时用户感到奇怪
-      ],
-    ),
-  );
+  runApp(const KiteApp());
 }

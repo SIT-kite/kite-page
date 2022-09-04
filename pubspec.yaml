@@ -11,13 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
   intl: ^0.17.0
   dynamic_color_theme: ^2.0.0
   flutter_easyloading: ^3.0.5
   flutter_weather_bg_null_safety: ^1.0.0  # Weather background
   flutter_screenutil: ^5.5.4
-  catcher: ^0.6.9
   universal_platform: ^1.0.0+1
   json_annotation: ^4.6.0
   json_serializable: ^6.3.1   # JSON

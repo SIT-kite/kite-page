@@ -218,6 +218,6 @@ class UserFunctionListFactory {
   }
 }
 
-List<FunctionType> getDefaultFunctionList(UserType userType) {
-  return UserFunctionListFactory.getUserFunctionList(userType).getFunctionList();
+List<FunctionType> getDefaultFunctionList() {
+  return UserFunctionListFactory.getUserFunctionList(UserType.undergraduate).getFunctionList();
 }

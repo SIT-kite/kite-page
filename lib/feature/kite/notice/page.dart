@@ -74,7 +74,7 @@ class NoticePage extends StatelessWidget {
 
   Widget _buildBody() {
     return MyFutureBuilder<List<KiteNotice>>(
-      future: KiteInitializer.noticeService.getNoticeList(),
+      futureGetter: KiteInitializer.noticeService.getNoticeList,
       builder: (context, data) {
         return _buildNoticeList(context, data);
       },

@@ -18,7 +18,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kite_page/feature/kite/weather/service.dart';
 import 'package:kite_page/global/global.dart';
 import 'package:kite_page/route.dart';
 import 'package:kite_page/storage/init.dart';
@@ -49,12 +48,14 @@ class _HomePageState extends State<HomePage> {
 
   void _updateWeather() {
     Log.info('更新天气');
-    Future.delayed(const Duration(milliseconds: 800), () async {
-      try {
-        final weather = await WeatherService().getCurrentWeather(KvStorageInitializer.home.campus);
-        Global.eventBus.emit(EventNameConstants.onWeatherUpdate, weather);
-      } catch (_) {}
-    });
+    // Future.delayed(const Duration(milliseconds: 800), () async {
+    //   try {
+    //     final weather = await WeatherService().getCurrentWeather(KvStorageInitializer.home.campus);
+    //     Global.eventBus.emit(EventNameConstants.onWeatherUpdate, weather);
+    //   } catch (_) {
+    //     Global.eventBus.emit(EventNameConstants.onWeatherUpdate, Weather.defaultWeather());
+    //   }
+    // });
   }
 
   Future<void> _onHomeRefresh(BuildContext context) async {
@@ -76,8 +77,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> buildFunctionWidgets() {
-    UserType userType = AccountUtils.getUserType()!;
-    List<FunctionType> list = KvStorageInitializer.home.homeItems ?? getDefaultFunctionList(userType);
+    List<FunctionType> list = KvStorageInitializer.home.homeItems ?? getDefaultFunctionList();
 
     // 先遍历一遍，过滤相邻重复元素
     FunctionType lastItem = list.first;
@@ -102,7 +102,13 @@ class _HomePageState extends State<HomePage> {
         currentGroup.add(FunctionButtonFactory.createFunctionButton(item));
       }
     }
-    return [const GreetingWidget(), separator] + result + [separator, Image.asset('assets/home/bottom.png')];
+    return [
+      const GreetingWidget(),
+      separator,
+      // ...result,
+      separator,
+      Image.asset('assets/home/bottom.png'),
+    ];
   }
 
   Widget _buildBody(BuildContext context) {

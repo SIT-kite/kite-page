@@ -18,7 +18,6 @@
 
 import 'dart:async';
 
-import 'package:catcher/catcher.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -82,7 +81,7 @@ class _MyFutureBuilderState<T> extends State<MyFutureBuilder<T>> {
   Widget buildWhenError(error, stackTrace) {
     if (!completer.isCompleted) completer.completeError(error, stackTrace);
     // 单独处理网络连接错误，且不上报
-    if (error is DioError && [DioErrorType.connectTimeout, DioErrorType.other].contains((error).type)) {
+    if (error is DioError) {
       return Center(
         child: Column(
           children: [
@@ -95,8 +94,6 @@ class _MyFutureBuilderState<T> extends State<MyFutureBuilder<T>> {
         ),
       );
     }
-
-    Catcher.reportCheckedError(error, stackTrace);
 
     if (widget.onErrorBuilder != null) widget.onErrorBuilder!(context, error);
 

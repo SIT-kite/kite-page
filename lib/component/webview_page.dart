@@ -20,7 +20,35 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kite_page/util/logger.dart';
+import 'package:kite_page/util/rule.dart';
 import 'package:kite_page/util/url_launcher.dart';
+import 'package:webviewx/webviewx.dart';
+
+enum InjectJsTime {
+  onPageStarted,
+  onPageFinished,
+}
+
+class InjectJsRuleItem {
+  /// js注入的url匹配规则
+  Rule<String> rule;
+
+  /// 若为空，则表示不注入
+  String? javascript;
+
+  /// 异步js字符串，若为空，则表示不注入
+  Future<String?>? asyncJavascript;
+
+  /// js注入时机
+  InjectJsTime injectTime;
+
+  InjectJsRuleItem({
+    required this.rule,
+    this.javascript,
+    this.asyncJavascript,
+    this.injectTime = InjectJsTime.onPageFinished,
+  });
+}
 
 class SimpleWebViewPage extends StatefulWidget {
   /// 初始的url
@@ -30,7 +58,7 @@ class SimpleWebViewPage extends StatefulWidget {
   final String? fixedTitle;
 
   /// js注入规则
-  final dynamic injectJsRules;
+  final List<InjectJsRuleItem>? injectJsRules;
 
   /// 显示分享按钮(默认不显示)
   final bool showSharedButton;
@@ -44,20 +72,11 @@ class SimpleWebViewPage extends StatefulWidget {
   /// 浮动按钮控件
   final Widget? floatingActionButton;
 
-  /// 自定义 UA
-  final String? userAgent;
-
   /// 若该字段不为null，则表示使用post请求打开网页
   final Map<String, String>? postData;
 
   /// WebView创建完毕时的回调
-  final dynamic onWebViewCreated;
-
-  /// 异步注入cookie
-  final Future<dynamic>? initialAsyncCookies;
-
-  /// 暴露dart回调到js接口
-  final Set<dynamic>? javascriptChannels;
+  final void Function(WebViewXController controller)? onWebViewCreated;
 
   /// 如果不支持webview，是否显示浏览器打开按钮
   final bool showLaunchButtonIfUnsupported;
@@ -79,10 +98,7 @@ class SimpleWebViewPage extends StatefulWidget {
     this.showRefreshButton = true,
     this.showLoadInBrowser = false,
     this.showTopProgressIndicator = true,
-    this.userAgent,
     this.postData,
-    this.initialAsyncCookies,
-    this.javascriptChannels,
     this.showLaunchButtonIfUnsupported = true,
     this.otherActions,
   }) : super(key: key);
@@ -92,7 +108,7 @@ class SimpleWebViewPage extends StatefulWidget {
 }
 
 class _SimpleWebViewPageState extends State<SimpleWebViewPage> {
-  final _controllerCompleter = Completer<dynamic>();
+  final _controllerCompleter = Completer<WebViewXController>();
   String title = '无标题页面';
   int progress = 0;
 
@@ -103,7 +119,8 @@ class _SimpleWebViewPageState extends State<SimpleWebViewPage> {
 
   void _onShared() async {
     final controller = await _controllerCompleter.future;
-    Log.info('分享页面: ${await controller.currentUrl()}');
+    final content = await controller.getContent();
+    Log.info('分享页面: ${content.source}');
   }
 
   /// 构造进度条
@@ -120,6 +137,8 @@ class _SimpleWebViewPageState extends State<SimpleWebViewPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
     final actions = <Widget>[
       if (widget.showSharedButton)
         IconButton(
@@ -161,7 +180,36 @@ class _SimpleWebViewPageState extends State<SimpleWebViewPage> {
           ),
         ),
         floatingActionButton: widget.floatingActionButton,
-        body: Container(),
+        body: WebViewX(
+          initialContent: widget.initialUrl,
+          initialSourceType: SourceType.url,
+          width: screenSize.width,
+          height: screenSize.height,
+          onWebViewCreated: (controller) {
+            _controllerCompleter.complete(controller);
+            if (widget.onWebViewCreated != null) {
+              widget.onWebViewCreated!(controller);
+            }
+          },
+          onPageStarted: (String src) async {
+            if (widget.injectJsRules == null) return;
+            for (final rule in widget.injectJsRules!) {
+              if (rule.injectTime == InjectJsTime.onPageStarted && rule.rule.accept(src) && rule.javascript != null) {
+                final controller = await _controllerCompleter.future;
+                controller.evalRawJavascript(rule.javascript!);
+              }
+            }
+          },
+          onPageFinished: (String src) async {
+            if (widget.injectJsRules == null) return;
+            for (final rule in widget.injectJsRules!) {
+              if (rule.injectTime == InjectJsTime.onPageFinished && rule.rule.accept(src) && rule.javascript != null) {
+                final controller = await _controllerCompleter.future;
+                controller.evalRawJavascript(rule.javascript!);
+              }
+            }
+          },
+        ),
       ),
     );
   }

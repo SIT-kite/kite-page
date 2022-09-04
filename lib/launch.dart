@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import 'package:catcher/catcher.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:kite_page/app.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,7 +28,7 @@ import 'util/logger.dart';
 import 'util/rule.dart';
 
 class GlobalLauncher {
-  static get _context => Catcher.navigatorKey!.currentContext!;
+  static get _context => KiteApp.navigatorKey.currentContext!;
   static final _schemeLauncher = SchemeLauncher(
     schemes: [
       LaunchScheme(

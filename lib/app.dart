@@ -33,6 +33,7 @@ import 'util/logger.dart';
 const title = '上应小风筝';
 
 class KiteApp extends StatelessWidget {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
   const KiteApp({Key? key}) : super(key: key);
 
   Route<dynamic> _onGenerateRoute(RouteSettings settings) {
@@ -85,15 +86,14 @@ class KiteApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = KvStorageInitializer.theme.isDarkMode;
     final primaryColor = KvStorageInitializer.theme.color;
-    final home = const WelcomePage();
 
     buildMaterialWithTheme(ThemeData theme) {
       return MaterialApp(
         title: title,
         theme: theme,
-        home: home,
+        home: const WelcomePage(),
         debugShowCheckedModeBanner: false,
-        navigatorKey: Catcher.navigatorKey,
+        navigatorKey: KiteApp.navigatorKey,
         onGenerateRoute: _onGenerateRoute,
         builder: EasyLoading.init(builder: (context, widget) {
           return MediaQuery(

@@ -18,15 +18,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kite_page/feature/home/entity/home.dart';
 import 'package:kite_page/feature/home/page/item/notice.dart';
-
-import '../../entity/home.dart';
-import 'bbs.dart';
-import 'board.dart';
-import 'classroom.dart';
-import 'contact.dart';
-import 'game.dart';
-import 'wiki.dart';
 
 export 'bbs.dart';
 export 'classroom.dart';
@@ -87,20 +80,20 @@ class FunctionButtonFactory {
     switch (type) {
       case FunctionType.notice:
         return const NoticeItem();
-      case FunctionType.classroom:
-        return const ClassroomItem();
-      case FunctionType.contact:
-        return const ContactItem();
-      case FunctionType.game:
-        return const GameItem();
-      case FunctionType.wiki:
-        return const WikiItem();
-      case FunctionType.separator:
-        return Container();
-      case FunctionType.bbs:
-        return const BbsItem();
-      case FunctionType.board:
-        return const BoardItem();
+      // case FunctionType.classroom:
+      //   return const ClassroomItem();
+      // case FunctionType.contact:
+      //   return const ContactItem();
+      // case FunctionType.game:
+      //   return const GameItem();
+      // case FunctionType.wiki:
+      //   return const WikiItem();
+      // case FunctionType.separator:
+      //   return Container();
+      // case FunctionType.bbs:
+      //   return const BbsItem();
+      // case FunctionType.board:
+      //   return const BoardItem();
       default:
         return Container();
     }

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import 'package:catcher/catcher.dart';
+
 import 'package:kite_page/feature/kite/init.dart';
 import 'package:kite_page/session/kite_session.dart';
 import 'package:kite_page/storage/init.dart';
@@ -29,9 +29,7 @@ class Initializer {
     try {
       await _init();
     } on Exception catch (error, stackTrace) {
-      try {
-        Catcher.reportCheckedError(error, stackTrace);
-      } catch (e) {
+      try {} catch (e) {
         Log.error([error, stackTrace]);
       }
     }

@@ -18,8 +18,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kite_page/feature/kite/weather/entity.dart';
+import 'package:kite_page/feature/kite/weather/service.dart';
 import 'package:kite_page/global/global.dart';
-import 'package:kite_page/route.dart';
 import 'package:kite_page/storage/init.dart';
 import 'package:kite_page/util/logger.dart';
 import 'package:kite_page/util/user.dart';
@@ -48,14 +49,14 @@ class _HomePageState extends State<HomePage> {
 
   void _updateWeather() {
     Log.info('更新天气');
-    // Future.delayed(const Duration(milliseconds: 800), () async {
-    //   try {
-    //     final weather = await WeatherService().getCurrentWeather(KvStorageInitializer.home.campus);
-    //     Global.eventBus.emit(EventNameConstants.onWeatherUpdate, weather);
-    //   } catch (_) {
-    //     Global.eventBus.emit(EventNameConstants.onWeatherUpdate, Weather.defaultWeather());
-    //   }
-    // });
+    Future.delayed(const Duration(milliseconds: 800), () async {
+      try {
+        final weather = await WeatherService().getCurrentWeather(KvStorageInitializer.home.campus);
+        Global.eventBus.emit(EventNameConstants.onWeatherUpdate, weather);
+      } catch (_) {
+        Global.eventBus.emit(EventNameConstants.onWeatherUpdate, Weather.defaultWeather());
+      }
+    });
   }
 
   Future<void> _onHomeRefresh(BuildContext context) async {
@@ -70,7 +71,6 @@ class _HomePageState extends State<HomePage> {
       alignment: Alignment.centerLeft,
       child: GestureDetector(
         onTap: () => _scaffoldKey.currentState?.openDrawer(),
-        onDoubleTap: () => Navigator.of(context).pushNamed(RouteTable.egg),
         child: Center(child: SvgPicture.asset('assets/home/kite.svg', width: 80.w, height: 80.h)),
       ),
     );

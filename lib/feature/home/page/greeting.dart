@@ -71,6 +71,7 @@ class _GreetingWidgetState extends State<GreetingWidget> {
     KvStorageInitializer.home.lastWeather = newWeather;
     campus = KvStorageInitializer.home.campus;
 
+    if (!mounted) return;
     setState(() => currentWeather = newWeather as Weather);
   }
 

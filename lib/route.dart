@@ -17,11 +17,11 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:kite_page/component/webview_page.dart';
 import 'package:kite_page/feature/not_found/page.dart';
 import 'package:kite_page/feature/web_page/about.dart';
 import 'package:kite_page/feature/web_page/feedback.dart';
 
-import 'feature/egg/page/index.dart';
 import 'feature/home/page/index.dart';
 import 'feature/kite/notice/page.dart';
 import 'feature/web_page/wiki.dart';
@@ -73,10 +73,18 @@ class RouteTable {
   static const freshmanFriend = '$freshman/friend';
   static const board = '/board';
   static const notFound = '/notFound';
+  static const download = '/download';
 
   static final Map<String, NamedRouteBuilder> routeTable = {
+    download: (context, args) => const SimpleWebViewPage(initialUrl: 'https://kite.sunnysab.cn/upgrade/'),
+    report: (context, args) => const SimpleWebViewPage(
+        initialUrl:
+            'https://kite.sunnysab.cn/wiki/kite-app/features/#%E4%B8%8A%E6%8A%A5%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95',
+        fixedTitle: '疫情上报'),
+    bbs: (context, args) =>
+        const SimpleWebViewPage(initialUrl: 'https://kite.sunnysab.cn/wiki/kite-app/bbs/', fixedTitle: '上应必答'),
+    game: (context, args) => const SimpleWebViewPage(initialUrl: 'https://kite.sunnysab.cn/wiki/kite-app/game/'),
     home: (context, args) => const HomePage(),
-    egg: (context, args) => const EggPage(),
     notice: (context, args) => const NoticePage(),
     notFound: (context, args) => const NotFoundPage(),
     about: (context, args) => const AboutPage(),

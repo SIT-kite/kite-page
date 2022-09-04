@@ -18,7 +18,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kite_page/app.dart';
 import 'package:kite_page/feature/home/entity/home.dart';
+import 'package:kite_page/feature/home/page/item/notice.dart';
 import 'package:kite_page/route.dart';
 
 class HomeFunctionButton extends StatelessWidget {
@@ -69,8 +71,88 @@ class HomeFunctionButton extends StatelessWidget {
 }
 
 class FunctionButtonFactory {
+  static get context => KiteApp.navigatorKey.currentContext!;
   static final builders = {
-    FunctionType.notice: () => HomeFunctionButton(
+    FunctionType.download: () => HomeFunctionButton(
+          route: RouteTable.download,
+          iconWidget: Icon(Icons.download, size: 30.h, color: Theme.of(context).primaryColor),
+          title: '下载',
+          subtitle: '立即下载新版小风筝',
+        ),
+    FunctionType.bulletin: () => HomeFunctionButton(
+          route: RouteTable.notice,
+          icon: 'assets/home/icon_bulletin.svg',
+          title: 'OA公告',
+          subtitle: '查看学校通知',
+        ),
+    FunctionType.mail: () => HomeFunctionButton(
+          route: '/mail',
+          icon: 'assets/home/icon_mail.svg',
+          title: 'Edu 邮箱',
+          subtitle: '查看校园邮箱中的邮件',
+        ),
+    FunctionType.office: () => HomeFunctionButton(
+          route: '/office',
+          icon: 'assets/home/icon_office.svg',
+          title: '办公',
+          subtitle: '通过应网办办理业务',
+        ),
+    FunctionType.library: () => HomeFunctionButton(
+          route: '/library',
+          icon: 'assets/home/icon_library.svg',
+          title: '图书馆',
+          subtitle: '热搜: 《Flutter实战》',
+        ),
+    FunctionType.score: () => HomeFunctionButton(
+          route: '/score',
+          icon: 'assets/home/icon_score.svg',
+          title: '成绩',
+          subtitle: '愿每一天都有收获',
+        ),
+    FunctionType.expense: () => HomeFunctionButton(
+          route: '/expense',
+          icon: 'assets/home/icon_expense.svg',
+          title: '查消费',
+          subtitle: '近期消费10元 一食堂',
+        ),
+    FunctionType.event: () => HomeFunctionButton(
+          route: '/event',
+          icon: 'assets/home/icon_event.svg',
+          title: '活动',
+          subtitle: '查看最新的第二课堂活动',
+        ),
+    FunctionType.classroom: () => HomeFunctionButton(
+          route: RouteTable.classroom,
+          icon: 'assets/home/icon_classroom.svg',
+          title: '空教室',
+          subtitle: '查看当前无课的教室',
+        ),
+    FunctionType.exam: () => HomeFunctionButton(
+          route: RouteTable.exam,
+          icon: 'assets/home/icon_exam.svg',
+          title: '考试安排',
+          subtitle: '近期无考试',
+        ),
+    FunctionType.report: () => HomeFunctionButton(
+          route: RouteTable.report,
+          icon: 'assets/home/icon_report.svg',
+          title: '体温上报',
+          subtitle: '今日已上报',
+        ),
+    FunctionType.timetable: () => HomeFunctionButton(
+          route: RouteTable.timetable,
+          icon: 'assets/home/icon_timetable.svg',
+          title: '课程表',
+          subtitle: '查看近期课程',
+        ),
+    FunctionType.notice: () => const NoticeItem(),
+    FunctionType.scanner: () => HomeFunctionButton(
+          onPressed: () {},
+          iconWidget: Icon(Icons.qr_code_scanner, size: 30.h, color: Theme.of(context).primaryColor),
+          title: '扫码',
+          subtitle: '扫描各种二维码',
+        ),
+    FunctionType.bbs: () => HomeFunctionButton(
           route: RouteTable.bbs,
           icon: 'assets/home/icon_bbs.svg',
           title: '问答',
@@ -93,6 +175,12 @@ class FunctionButtonFactory {
           icon: 'assets/home/icon_game.svg',
           title: '小游戏',
           subtitle: '来放松一下吧',
+        ),
+    FunctionType.wiki: () => HomeFunctionButton(
+          route: RouteTable.wiki,
+          icon: 'assets/home/icon_wiki.svg',
+          title: 'Wiki',
+          subtitle: '上应大生存指南',
         ),
   };
   static Widget createFunctionButton(FunctionType type) {

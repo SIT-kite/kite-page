@@ -17,6 +17,7 @@
  */
 
 import 'package:kite_page/storage/dao/home.dart';
+import 'package:kite_page/storage/storage/auth.dart';
 import 'package:kite_page/storage/storage/home.dart';
 
 import 'dao/index.dart';
@@ -38,5 +39,6 @@ class KvStorageInitializer {
   static void init() {
     theme = ThemeSettingStorage();
     home = HomeSettingStorage();
+    auth = AuthSettingStorage();
   }
 }

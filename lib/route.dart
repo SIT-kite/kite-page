@@ -19,6 +19,7 @@
 import 'package:flutter/material.dart';
 
 import 'feature/egg/page/index.dart';
+import 'feature/home/page/index.dart';
 
 typedef NamedRouteBuilder = Widget Function(BuildContext context, Map<String, dynamic> args);
 
@@ -68,6 +69,7 @@ class RouteTable {
   static const board = '/board';
 
   static final Map<String, NamedRouteBuilder> routeTable = {
+    home: (context, args) => const HomePage(),
     egg: (context, args) => const EggPage(),
   };
 

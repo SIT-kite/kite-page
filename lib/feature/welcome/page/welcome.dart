@@ -17,11 +17,14 @@
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kite_page/route.dart';
+import 'package:kite_page/storage/init.dart';
+import 'package:kite_page/util/user.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
-  Widget buildEntryButton(BuildContext context, String title, String routeName) {
+  Widget buildEntryButton(BuildContext context, String title, String routeName, [VoidCallback? beforeEnter]) {
     return OutlinedButton(
       autofocus: true,
       style: OutlinedButton.styleFrom(
@@ -37,9 +40,14 @@ class WelcomePage extends StatelessWidget {
           style: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.white),
         ),
       ),
-      onPressed: () => Navigator.of(context).pushNamed(routeName),
+      onPressed: () {
+        if (beforeEnter != null) beforeEnter();
+        Navigator.of(context).pushNamed(routeName);
+      },
     );
   }
+
+  setUserType(UserType userType) => KvStorageInitializer.auth.userType = userType;
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +93,13 @@ class WelcomePage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildEntryButton(context, '本科生入口', ''),
+                    buildEntryButton(context, '本/专科生入口', RouteTable.home, () => setUserType(UserType.undergraduate)),
                     SizedBox(height: 10.h),
-                    buildEntryButton(context, '研究生入口', ''),
+                    buildEntryButton(context, '研究生入口', RouteTable.home, () => setUserType(UserType.postgraduate)),
                     SizedBox(height: 10.h),
-                    buildEntryButton(context, '教师入口', ''),
+                    buildEntryButton(context, '教师入口', RouteTable.home, () => setUserType(UserType.teacher)),
                     SizedBox(height: 10.h),
-                    buildEntryButton(context, '新生入口', ''),
+                    buildEntryButton(context, '新生入口', RouteTable.home, () => setUserType(UserType.freshman)),
                   ],
                 ),
               ],

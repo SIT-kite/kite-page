@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import 'package:catcher/catcher.dart';
+import 'package:kite_page/storage/init.dart';
 import 'package:kite_page/util/logger.dart';
 
 class Initializer {
@@ -32,5 +33,7 @@ class Initializer {
     }
   }
 
-  static Future<void> _init() async {}
+  static Future<void> _init() async {
+    KvStorageInitializer.init();
+  }
 }

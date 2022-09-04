@@ -119,7 +119,7 @@ class KiteApp extends StatelessWidget {
 
           if (event is KeyUpEvent && LogicalKeyboardKey.escape == event.logicalKey) {
             Log.info('松开返回键');
-            final ctx = Catcher.navigatorKey?.currentContext;
+            final ctx = navigatorKey.currentContext;
             if (ctx != null && Navigator.canPop(ctx)) {
               Navigator.pop(ctx);
             }

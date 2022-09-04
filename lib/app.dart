@@ -17,7 +17,6 @@
  */
 import 'dart:convert';
 
-import 'package:catcher/core/catcher.dart';
 import 'package:dynamic_color_theme/dynamic_color_theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
